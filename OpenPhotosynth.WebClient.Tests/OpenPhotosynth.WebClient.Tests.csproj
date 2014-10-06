@@ -67,7 +67,7 @@
     <Compile Include="BindableBaseTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PhotosynthApi\OpenPhotosynth.WebClient.csproj">
+    <ProjectReference Include="..\OpenPhotosynth.WebClient\OpenPhotosynth.WebClient.csproj">
       <Project>{9291f259-bed0-40a1-ba26-329e43ce30ca}</Project>
       <Name>OpenPhotosynth.WebClient</Name>
     </ProjectReference>

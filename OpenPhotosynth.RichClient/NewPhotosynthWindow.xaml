@@ -1,0 +1,149 @@
+﻿<!--
+The MIT License (MIT)
+
+Copyright (c) 2014 Alec Siu, Eric Stollnitz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<Window x:Class="OpenPhotosynth.RichClient.NewPhotosynthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:openps="clr-namespace:OpenPhotosynth.WebClient;assembly=OpenPhotosynth.WebClient"
+        xmlns:psdemo="clr-namespace:OpenPhotosynth.RichClient"
+        Title="Photosynth REST API Demo"
+        Icon="/Assets/favicon.ico"
+        ResizeMode="CanResizeWithGrip"
+        Background="#222322"       
+        WindowStartupLocation="CenterScreen"
+        MinHeight="720"
+        MaxHeight="720"
+        MinWidth="800"
+        Height="720"
+        Width="800">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <psdemo:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <psdemo:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <psdemo:TopologyToImagePathConverter x:Key="TopologyToImagePathConverter" />
+        <psdemo:TopologyToDescriptionConverter x:Key="TopologyToDescriptionConverter" />
+        <psdemo:NewPhotosynthViewModel x:Key="NewPhotosynthViewModel" />
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource NewPhotosynthViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="480" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <psdemo:AccountControl DataContext="{Binding AccountViewModel}" Background="WhiteSmoke" />
+
+        <Border Grid.Column="1" Background="WhiteSmoke">
+            <StackPanel Orientation="Vertical" Margin="10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" Margin="0 5 0 0">
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 0 10 0" FontSize="12" Content="Sign in" Style="{StaticResource LinkStyle}" Command="{Binding AccountViewModel.SignInCommand}"
+                            Visibility="{Binding AccountViewModel.CanSignIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 0 10 0" FontSize="12" Content="Sign out" Style="{StaticResource LinkStyle}" Command="{Binding AccountViewModel.SignOutCommand}" 
+                             Visibility="{Binding AccountViewModel.CanSignOut, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 0 10 0" FontSize="12" Content="API Documentation" Style="{StaticResource LinkStyle}" Command="{Binding ShowApiDocsCommand}" />
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 0 0 0" FontSize="12" Content="About" Style="{StaticResource LinkStyle}" Name="AboutButton" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Title" Foreground="White" />
+            <TextBox Grid.Column="2" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock Grid.Row="2" Text="Description" Foreground="White" />
+            <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Description}" AcceptsReturn="True" Height="40" VerticalScrollBarVisibility="Auto" />
+
+            <TextBlock Grid.Row="4" Text="Tags" ToolTip="A list of comma-separated tags to apply to your Photosynth" Foreground="White" />
+            <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding Tags}" />
+
+            <TextBlock Grid.Row="6" Text="Photo Rights" ToolTip="We recommend a Creative Commons license" Foreground="White" />
+            <ComboBox Grid.Row="6" Grid.Column="2" SelectedValue="{Binding License}">
+                <openps:License>AllRightsReserved</openps:License>
+                <openps:License>CCAttribution</openps:License>
+                <openps:License>CCAttributionShareAlike</openps:License>
+                <openps:License>CCAttributionNoDerivatives</openps:License>
+                <openps:License>CCAttributionNoDerivatives</openps:License>
+                <openps:License>CCAttributionNonCommercial</openps:License>
+                <openps:License>CCAttributionNonCommercialShareAlike</openps:License>
+                <openps:License>CCAttributionNonCommercialNoDerivatives</openps:License>
+                <openps:License>PublicDomain</openps:License>
+            </ComboBox>
+
+            <TextBlock Grid.Row="8" Text="Visibility" ToolTip="Only those who have a link to an unlisted Photosynth can view it" Foreground="White" />
+            <ComboBox Grid.Row="8" Grid.Column="2" SelectedValue="{Binding PrivacyLevel}">
+                <openps:PrivacyLevel>Unlisted</openps:PrivacyLevel>
+                <openps:PrivacyLevel>Public</openps:PrivacyLevel>
+            </ComboBox>
+
+            <TextBlock Grid.Row="10" Text="Topology" Foreground="White" />
+            <ComboBox Grid.Row="10" Grid.Column="2" SelectedValue="{Binding Topology}">
+                <openps:Topology>Spin</openps:Topology>
+                <openps:Topology>Panorama</openps:Topology>
+                <openps:Topology>Wall</openps:Topology>
+                <openps:Topology>Walk</openps:Topology>
+            </ComboBox>
+
+        </Grid>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="0 20 20 0">
+            <Border Background="#FFFFF4C5">
+                <TextBlock Padding="7" FontSize="11" TextWrapping="Wrap" Text="{Binding Topology, Converter={StaticResource TopologyToDescriptionConverter}}" />
+            </Border>
+            <Image Source="{Binding Topology, Converter={StaticResource TopologyToImagePathConverter}}" Height="200" VerticalAlignment="Top"/>            
+        </StackPanel>
+
+        <psdemo:PhotoPickerControl Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Stretch" MinHeight="280" DataContext="{Binding PhotoPickerViewModel}" Margin="20" HorizontalAlignment="Stretch"
+                                   IsEnabled="{Binding DataContext.Uploader.IsUploading, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Converter={StaticResource InverseBooleanConverter}}" />
+
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="20">
+            <Button Command="{Binding UploadCommand}" IsEnabled="{Binding CanUpload}" Style="{StaticResource PlainButtonStyle}" Margin="8 0 0 0" HorizontalAlignment="Left">Upload to Photosynth</Button>
+        </StackPanel>
+
+    </Grid>
+
+</Window>

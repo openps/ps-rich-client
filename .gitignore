@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/OpenPhotosynth.RichClient/bin/Debug
+/OpenPhotosynth.RichClient/obj/Debug
+/OpenPhotosynth.WebClient/bin/Debug
+/OpenPhotosynth.WebClient/obj/Debug
+/OpenPhotosynth.WebClient.Tests/obj/Debug
+/packages
+*.suo
+/OpenPhotosynth.WebClient.Tests/bin/Debug
