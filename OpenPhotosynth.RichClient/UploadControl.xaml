@@ -37,8 +37,8 @@ THE SOFTWARE.
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding Status, FallbackValue='Uploading files', Mode=OneWay}"/>
-        <TextBlock Text="{Binding Progress, StringFormat='{}{0:0}%', FallbackValue='34%', Mode=OneWay}" HorizontalAlignment="Right"/>
-        <ProgressBar Value="{Binding Progress, FallbackValue=34, Mode=OneWay}" Height="6" Grid.Row="2"/>
+        <TextBlock Text="{Binding ProgressPercentage, StringFormat='{}{0:0}%', FallbackValue='34%', Mode=OneWay}" HorizontalAlignment="Right"/>
+        <ProgressBar Value="{Binding ProgressPercentage, FallbackValue=34, Mode=OneWay}" Height="6" Grid.Row="2"/>
         <TextBlock Text="{Binding EstimatedTimeRemaining, FallbackValue='About 3 seconds left', Mode=OneWay}" Grid.Row="4"/>
     </Grid>
 </UserControl>
