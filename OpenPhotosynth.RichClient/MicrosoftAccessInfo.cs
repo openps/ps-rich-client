@@ -29,6 +29,9 @@ using OpenPhotosynth.WebClient;
 
 namespace OpenPhotosynth.RichClient
 {
+    /// <summary>
+    /// Class for teasing apart the URL returned from Microsoft Account holding access token information.
+    /// </summary>
     public sealed class MicrosoftAccessInfo
     {
         private const string UserIdParameter = "user_id";

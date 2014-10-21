@@ -30,6 +30,10 @@ using System.Windows.Controls;
 
 namespace OpenPhotosynth.RichClient
 {
+    /// <summary>
+    /// Class for generating sign-in and sign-out URLs for Microsoft Account, together with displaying
+    /// WebBrowser-control hosted authentication and permission dialogs.
+    /// </summary>
     public sealed class MicrosoftAccount
     {
         private static readonly TimeSpan SignInTimeout = TimeSpan.FromSeconds(5);

@@ -36,15 +36,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
-using OpenPhotosynth.WebClient;
 using OpenPhotosynth.RichClient.Properties;
+using OpenPhotosynth.WebClient;
 
 namespace OpenPhotosynth.RichClient
 {
     /// <summary>
-    /// TODO recompress photos
-    /// TODO copy exif data
-    /// TODO warn about different focal lengths, aspect ratios
+    /// Other things we could do before uploading photos to Photosynth:
+    /// - recompress photos to minimize bandwidth consumption (need to maintain EXIF data too though
+    /// because this contains valuable camera information, e.g. focal length)
+    /// - extract useful EXIF data like geotag
+    /// - warn when photos have differing focal lengths, aspect ratios etc. that could affect the synthed result
     /// </summary>
     public class PhotoPickerViewModel : BindableBase
     {

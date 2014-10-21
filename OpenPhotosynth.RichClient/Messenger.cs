@@ -25,6 +25,9 @@ using System.Collections.Generic;
 
 namespace OpenPhotosynth.RichClient
 {
+    /// <summary>
+    /// Simple class for allowing Views to communicate with ViewModels about events
+    /// </summary>
     public class Messenger
     {
         public static readonly Messenger Default = new Messenger();
@@ -35,6 +38,11 @@ namespace OpenPhotosynth.RichClient
         {
         }
 
+        /// <summary>
+        /// Register a callback to listen to a certain type of event.
+        /// </summary>
+        /// <param name="type">The type of the event.</param>
+        /// <param name="callback">The callback.</param>
         public void Register(string type, Action<object> callback)
         {
             List<Action<object>> listenersForType;
@@ -47,6 +55,11 @@ namespace OpenPhotosynth.RichClient
             listenersForType.Add(callback);
         }
 
+        /// <summary>
+        /// Send a message that an event of a certain type has occurred.
+        /// </summary>
+        /// <param name="type">The type of the event.</param>
+        /// <param name="data">Data pertaining to the event.</param>
         public void Send(string type, object data)
         {
             List<Action<object>> listenersForType;
