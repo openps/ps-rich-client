@@ -9,5 +9,4 @@ For documentation regarding the REST API, visit https://photosynth.net/api/docs/
 
 You can download a pre-compiled binary of this application as a Click-Once installation (may not always be up to date) from:
 
-http://ohalec.blob.core.windows.net/ps-rich-client/OpenPhotosynth.RichClient.application
-
+https://photosynth2.blob.core.windows.net/ps-rich-client/OpenPhotosynth.RichClient.application
